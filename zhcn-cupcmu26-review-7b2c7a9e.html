@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界杯 · 资料整理与信息索引</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f1f3f5;
+            color: #1e1e2f;
+            line-height: 1.6;
+            padding: 2.5rem 1.2rem;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        /* Hero 卡片 (主视觉) */
+        .hero-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
+            padding: 2.8rem 2.2rem;
+            margin-bottom: 2.2rem;
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: box-shadow 0.2s ease;
+        }
+        .hero-card:hover {
+            box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+        }
+        .hero-title {
+            font-size: 2.4rem;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+            color: #1a1a2e;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .hero-title span {
+            background: linear-gradient(145deg, #1b4332, #2d6a4f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 620;
+        }
+        .hero-sub {
+            font-size: 1.1rem;
+            color: #3a3a4a;
+            max-width: 720px;
+            margin-bottom: 1.4rem;
+        }
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            font-size: 0.95rem;
+            color: #5a5a6a;
+        }
+        .hero-meta .tag {
+            background: #e9ecef;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            border: 1px solid #d6d8dd;
+            font-size: 0.85rem;
+        }
+        /* 通用卡片 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.6rem;
+            margin: 2rem 0 1.8rem;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid #e6e8ec;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            padding: 1.8rem 1.8rem 2rem;
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+        .card:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 550;
+            margin-bottom: 0.8rem;
+            color: #1b1b2c;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .card-title i {
+            font-style: normal;
+            background: #f1f3f5;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: #3a4a5a;
+        }
+        .card-text {
+            color: #2e2e3e;
+            margin-bottom: 0.6rem;
+        }
+        .card ul {
+            list-style: none;
+            padding-left: 0.2rem;
+            margin: 0.6rem 0 0.2rem;
+        }
+        .card li {
+            padding: 0.25rem 0 0.25rem 1.4rem;
+            position: relative;
+        }
+        .card li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #2d6a4f;
+            font-weight: 600;
+        }
+        .highlight-link {
+            color: #1e5a3b;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #7baa93;
+            transition: border-color 0.15s, background 0.1s;
+        }
+        .highlight-link:hover {
+            background: #eaf3ed;
+            border-bottom: 1px solid #1e5a3b;
+        }
+        /* 适合人群 + 场景混合卡片 */
+        .double-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.6rem;
+            margin: 1.8rem 0;
+        }
+        @media (max-width: 680px) {
+            .double-column {
+                grid-template-columns: 1fr;
+                gap: 1.6rem;
+            }
+            .hero-title {
+                font-size: 1.9rem;
+            }
+        }
+        .faq-mini {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid #e6e8ec;
+            padding: 1.8rem 1.8rem 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            margin-top: 1.6rem;
+        }
+        .faq-mini details {
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid #eceef2;
+            padding-bottom: 0.6rem;
+        }
+        .faq-mini details:last-of-type {
+            border-bottom: none;
+        }
+        .faq-mini summary {
+            font-weight: 520;
+            cursor: pointer;
+            color: #1f2a3a;
+            padding: 0.3rem 0;
+        }
+        .faq-mini summary::-webkit-details-marker {
+            color: #3a6a52;
+        }
+        .faq-mini p {
+            margin: 0.5rem 0 0.2rem 1.2rem;
+            color: #3d3d50;
+            font-size: 0.95rem;
+        }
+        .footer-note {
+            margin-top: 2.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #6a6a7a;
+            border-top: 1px solid #dce0e5;
+            padding-top: 1.8rem;
+        }
+        .footer-note a {
+            color: #1e5a3b;
+            text-decoration: none;
+            font-weight: 490;
+        }
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+        .small-badge {
+            background: #eef2f5;
+            border-radius: 50px;
+            padding: 0.1rem 0.75rem;
+            font-size: 0.8rem;
+            color: #3a4a5a;
+            display: inline-block;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 1.2rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Hero 主视觉 · 资料索引 -->
+    <div class="hero-card">
+        <div class="hero-title">
+            <span>世界杯</span> · 资料整理与信息索引
+        </div>
+        <div class="hero-sub">
+            从历届赛事档案、球队数据到观赛指南，我们试着把零散的信息整理成有脉络的卡片。这里不是官方百科，更像一个安静的资料角——把和<a href="https://zhcn-cupcmu26.com" class="highlight-link">世界杯</a>有关的趣闻、纪录、冷知识按线索收拢起来，方便随时翻看。
+        </div>
+        <div class="hero-meta">
+            <span class="tag">📋 档案向</span>
+            <span class="tag">⚽ 1950–2026</span>
+            <span class="tag">📆 持续更新</span>
+        </div>
+    </div>
+
+    <!-- 用途卡片 · 信息怎么用 -->
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-title">📇 用途卡片 <i>场景化</i></div>
+            <div class="card-text">
+                这个索引站不追求实时比分，而是帮你在几个常见场景里快速找到需要的东西：
+            </div>
+            <ul>
+                <li><strong>赛前补课</strong> — 想了解某届世界杯的背景、主办国冷知识，翻翻赛事简史。</li>
+                <li><strong>数据查询</strong> — 射手榜、出场纪录、经典对阵，整理成轻量列表，不用翻冗长数据库。</li>
+                <li><strong>闲聊谈资</strong> — 那些不常被提起的规则变化、吉祥物演变、用球历史，这里有一小沓。</li>
+                <li><strong>内容索引</strong> — 如果你在写文章、做播客，可以从这里找到延伸阅读的线索。</li>
+            </ul>
+            <div style="margin-top: 0.6rem; color: #4a5a6a; font-size: 0.9rem;">
+                ⚡ 所有卡片都指向一个核心：让信息本身更好读，而不是堆砌链接。
+            </div>
+        </div>
+    </div>
+
+    <!-- 双列：适合人群 + 自然链接段落 -->
+    <div class="double-column">
+        <!-- 适合人群卡片 -->
+        <div class="card" style="margin: 0;">
+            <div class="card-title">👥 适合人群</div>
+            <ul>
+                <li>新球迷 — 想系统了解世界杯脉络，但怕信息太碎。</li>
+                <li>老球迷 — 需要快速查某个年份的细节或冷门纪录。</li>
+                <li>内容创作者 — 写稿、做视频前想找一些不那么热门的素材。</li>
+                <li>教育 / 科普场合 — 给学生或孩子讲世界杯的演变，这里有一份干净底本。</li>
+                <li>自己 — 纯粹喜欢足球史，愿意在一个页面里慢慢翻。</li>
+            </ul>
+            <div style="margin-top: 1rem; background: #f6f8fa; border-radius: 16px; padding: 0.6rem 1rem;">
+                <span style="font-weight: 500;">📌 一句话</span> 不管你看球几年，这里大概率有你还没点开过的资料卡。
+            </div>
+        </div>
+        <!-- 自然链接段落 · 从世界杯聊开去 -->
+        <div class="card" style="margin: 0;">
+            <div class="card-title">🔗 从资料聊开去</div>
+            <p style="margin-bottom: 0.8rem;">
+                我们整理这些内容的时候，常常会想：<strong>世界杯</strong>到底意味着什么？对有些人来说，它是四年的计时器，是朋友聚在一起的由头；对另一些人，它是一本巨大的编年史，每届都有独特的叙事弧线。
+            </p>
+            <p style="margin-bottom: 0.8rem;">
+                所以这个页面里，你会看到一些不那么“实用”的记录——比如哪届世界杯的吉祥物最冷门，哪个球场在赛后变成了社区菜园。它们和比分无关，但让<a href="https://zhcn-cupcmu26.com" class="highlight-link">世界杯</a>更像一个立体的文化符号。
+            </p>
+            <p style="margin-bottom: 0.2rem;">
+                如果你愿意，也可以把这里当成一个安静的信息中转站：翻到感兴趣的条目，再去深挖。我们尽量不制造信息焦虑，只做轻巧的索引。
+            </p>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要卡片 -->
+    <div class="faq-mini">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+            <span style="font-size: 1.4rem; font-weight: 540;">❓ FAQ 摘要</span>
+            <span class="small-badge">来自日常提问</span>
+        </div>
+        <details>
+            <summary>这里和普通足球资讯站有什么不同？</summary>
+            <p>我们不追热点，不推送战报。更侧重资料整理和背景索引，像一个可以安静翻阅的卡片盒。当然，链接也指向最核心的 <a href="https://zhcn-cupcmu26.com" class="highlight-link">世界杯</a> 内容集合。</p>
+        </details>
+        <details>
+            <summary>内容多久更新一次？</summary>
+            <p>没有固定频率。当有新的资料线索、历史细节或数据校正时，会陆续添加卡片。你可以偶尔回来看看有没有新卡片。</p>
+        </details>
+        <details>
+            <summary>我可以贡献自己知道的冷知识吗？</summary>
+            <p>暂时没有开放提交功能，但欢迎通过页面相关渠道反馈。我们很乐意把靠谱的冷知识整理成新卡片。</p>
+        </details>
+        <details>
+            <summary>页面里的链接会失效吗？</summary>
+            <p>我们尽量指向稳定的来源或官方存档。如果发现链接失效，可以提醒我们更新。核心索引页 <a href="https://zhcn-cupcmu26.com" class="highlight-link">世界杯</a> 本身是长期维护的。</p>
+        </details>
+    </div>
+
+    <!-- 一个额外的场景提示块 -->
+    <div style="margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center;">
+        <span style="background: #e4e9ee; padding: 0.4rem 1.2rem; border-radius: 60px; font-size: 0.9rem; border: 1px solid #cdd3da;">🏆 1950-2026 赛事简史</span>
+        <span style="background: #e4e9ee; padding: 0.4rem 1.2rem; border-radius: 60px; font-size: 0.9rem; border: 1px solid #cdd3da;">📊 纪录与数据索引</span>
+        <span style="background: #e4e9ee; padding: 0.4rem 1.2rem; border-radius: 60px; font-size: 0.9rem; border: 1px solid #cdd3da;">🎨 视觉演变 (徽章/海报)</span>
+    </div>
+
+    <!-- 页脚 (自然链接再次出现) -->
+    <div class="footer-note">
+        资料整理与信息索引 · 围绕 <a href="https://zhcn-cupcmu26.com">世界杯</a> 做一点安静的记录。<br>
+        <span style="font-size: 0.85rem; opacity: 0.7;">卡片式内容 · 非官方页面 · 仅供信息参考</span>
+    </div>
+</div>
+</body>
+</html>
